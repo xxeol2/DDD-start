@@ -1,3 +1,5 @@
+package one.four;
+
 public class Order {
 	private OrderState state;
 	private ShippingInfo shippingInfo;
