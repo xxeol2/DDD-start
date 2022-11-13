@@ -6,10 +6,11 @@ public class Order {
 	private List<OrderLine> orderLines;
 	private ShippingInfo shippingInfo;
 	private Money totalAmounts;
+	private OrderState state;
 
 	public Order(List<OrderLine> orderLines, ShippingInfo shippingInfo) {
 		setOrderLines(orderLines);
-		setShippingInfo();
+		setShippingInfo(shippingInfo);
 	}
 
 	private void setOrderLines(List<OrderLine> orderLines) {
@@ -23,6 +24,17 @@ public class Order {
 			throw new IllegalArgumentException("no ShippingInfo");
 		}
 		this.shippingInfo = shippingInfo;
+	}
+
+	public void cancel() {
+		verifyNotYetShipped();
+		this.state = OrderState.CANCELED;
+	}
+
+	private void verifyNotYetShipped() {
+		if (state != OrderState.PAYMENT_WAITING && state != OrderState.PREPARING) {
+			throw new IllegalStateException("already shipped");
+		}
 	}
 
 	private void verifyAtLeastOneOrMoreOrderLines(List<OrderLine> orderLines) {
