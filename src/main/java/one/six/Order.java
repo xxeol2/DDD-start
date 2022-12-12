@@ -2,7 +2,11 @@ package one.six;
 
 public class Order {
 
-    private String orderNumber;
+    private OrderNo id;
+
+    public OrderNo getId() {
+        return id;
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -16,10 +20,10 @@ public class Order {
             return false;
         }
         Order other = (Order) obj;
-        if (this.orderNumber == null) {
+        if (this.id == null) {
             return false;
         }
-        return this.orderNumber.equals(other.orderNumber);
+        return this.id.equals(other.id);
     }
 
     @Override
